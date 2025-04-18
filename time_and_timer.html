@@ -9,11 +9,13 @@
       font-family: '함초롬돋움', sans-serif;
       text-align: center;
       margin-top: 50px;
-      display: grid;
+      display: flex;
+      flex-direction: column; /* 수직 방향으로 박스 배치 */
+      align-items: center;     /* 수평 중앙 */
       justify-content: center;   /* 수평 중앙 */
     }
     .box {
-      width: 700px;
+      width: 80%;
       background-color: #f7f7f7;
       border-radius: 16px;
       place-items: center;      /* 수평, 수직 중앙 정렬 */

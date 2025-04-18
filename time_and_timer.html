@@ -6,9 +6,20 @@
   <style>
     body {
       background-color: #ffffff; 
-      font-family: '여기어때 잘난체', '함초롬돋움', sans-serif;
+      font-family: '함초롬돋움', sans-serif;
       text-align: center;
       margin-top: 50px;
+      display: grid;
+      justify-content: center;   /* 수평 중앙 */
+    }
+    .box {
+      width: 700px;
+      background-color: #f7f7f7;
+      border-radius: 16px;
+      place-items: center;      /* 수평, 수직 중앙 정렬 */
+      text-align: center;       /* 텍스트 수평 중앙 정렬 */
+      line-height: 1;
+      margin-bottom: 30px;
     }
     .time{
       font-size: 2em;
@@ -26,28 +37,33 @@
       color: #368AFF;
     }
     button {
+      background-color: transparent;
+      border-color: transparent;
+      border-radius: 10px;
       font-family: inherit;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 2em;
       margin: 5px;
-      padding: 10px 20px;
+    }
+    .button:hover {
+      background-color: #dfedff; /* 호버 시 배경 색상 살짝 */
     }
   </style>
 </head>
 <body>
 
   <!--<h1>Sanewee's Timer</h1>-->
+  <div class="box">
+    <h1> 현재 시간 </h1>
+    <div class="time" id="current-time">--:--:--</div>
+  </div>
 
-  <div class="time" id="current-time">--:--:--</div>
-
-  <!--r가로줄-->
-  <hr style="width: 30%; margin: 30px auto;">
-
-  <div class="timer" id="timer">00:00:00</div>
-  <div>
-    <button onclick="startTimer()">시작</button>
-    <button onclick="stopTimer()">정지</button>
-    <button onclick="resetTimer()">리셋</button>
+  <div class="box">
+    <h1> 타이머 </h1>
+    <div class="timer" id="timer">00:00:00</div>
+    <button class="button" onclick="startTimer()">⏩</button>
+    <button class="button" onclick="stopTimer()">⏸️</button>
+    <button class="button" onclick="resetTimer()">🔁</button>
   </div>
 
   <script>

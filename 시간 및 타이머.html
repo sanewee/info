@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>현재 시간 & 타이머</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .time, .timer {
+      font-size: 2em;
+      margin: 20px 0;
+    }
+    button {
+      font-size: 1em;
+      margin: 5px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🕒 현재 시간과 ⏱️ 타이머</h1>
+
+  <div class="time" id="current-time">--:--:--</div>
+
+  <hr style="width: 50%; margin: 30px auto;">
+
+  <div class="timer" id="timer">00:00:00</div>
+
+  <div>
+    <button onclick="startTimer()">시작</button>
+    <button onclick="stopTimer()">정지</button>
+    <button onclick="resetTimer()">리셋</button>
+  </div>
+
+  <script>
+    // 현재 시간 업데이트
+    function updateCurrentTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString();
+      document.getElementById('current-time').textContent = timeStr;
+    }
+    setInterval(updateCurrentTime, 1000);
+    updateCurrentTime(); // 초기화
+
+    // 타이머 기능
+    let timerInterval;
+    let seconds = 0;
+
+    function updateTimerDisplay() {
+      const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(seconds % 60).padStart(2, '0');
+      document.getElementById('timer').textContent = `${hrs}:${mins}:${secs}`;
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        seconds++;
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer() {
+      stopTimer();
+      seconds = 0;
+      updateTimerDisplay();
+    }
+
+    updateTimerDisplay(); // 초기화
+  </script>
+
+</body>
+</html>

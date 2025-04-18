@@ -22,7 +22,9 @@
       place-items: center;      /* 수평, 수직 중앙 정렬 */
       text-align: center;       /* 텍스트 수평 중앙 정렬 */
       line-height: 1;
-      margin-bottom: 30px;
+      margin-bottom: 2vw;
+      padding-top: 1vw;
+      padding-bottom: 5vw;
     }
     .time{
       font-size: 2em;
@@ -40,15 +42,22 @@
       color: #368AFF;
     }
     button {
-      background-color: transparent;
+      background-color: #dbdbdb;
       border-color: transparent;
       border-radius: 10px;
+      width: 15vw;
+      height: 7vw;
       font-family: inherit;
       font-weight: bold;
-      font-size: 2em;
-      margin: 5px;
+      font-size: 1.2em;
+      margin: 1vw;
+      padding: 1vw;
+    }
+    .block{
+      padding-bottom: 2vw;
     }
     .button:hover {
+      color: #368AFF;
       background-color: #dfedff; /* 호버 시 배경 색상 살짝 */
     }
   </style>
@@ -63,10 +72,19 @@
 
   <div class="box">
     <h1> 타이머 </h1>
-    <div class="timer" id="timer">00:00:00</div>
-    <button class="button" onclick="startTimer()">⏩</button>
-    <button class="button" onclick="stopTimer()">⏸️</button>
-    <button class="button" onclick="resetTimer()">🔁</button>
+    <div class="block">
+      <div class="timer" id="timer">00:00:00</div>
+    </div>
+    <div>
+      <button class="button" onclick="startCountdown()">시작</button>
+      <button class="button" onclick="stopCountdown()">정지</button>
+      <button class="button" onclick="resetCountdown()">초기화</button>   
+    </div>
+    <div>
+      <button class="button" onclick="addMinutes(1)">+1분</button>
+      <button class="button" onclick="addMinutes(5)">+5분</button>
+      <button class="button" onclick="addMinutes(10)">+10분</button>
+    </div>
   </div>
 
   <script>
@@ -80,8 +98,13 @@
     updateCurrentTime(); // 초기화
 
     // 타이머 기능
-    let timerInterval;
-    let seconds = 0;
+    let countdownInterval;
+    let seconds = 0; // 예: 5분 = 300초
+
+    function addMinutes(mins) {
+      seconds += mins * 60;
+      updateTimerDisplay();
+    }
 
     function updateTimerDisplay() {
       const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
@@ -90,27 +113,32 @@
       document.getElementById('timer').textContent = `${hrs}:${mins}:${secs}`;
     }
 
-    function startTimer() {
-      if (timerInterval) return;
-      timerInterval = setInterval(() => {
-        seconds++;
+    function startCountdown() {
+      if (countdownInterval || seconds <= 0) return;
+      countdownInterval = setInterval(() => {
+        seconds--;
         updateTimerDisplay();
+        if (seconds <= 0) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          alert("종료");
+        }
       }, 1000);
     }
 
-    function stopTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
+    function stopCountdown() {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
     }
 
-    function resetTimer() {
-      stopTimer();
-      seconds = 0;
+    function resetCountdown() {
+      stopCountdown();
+      seconds = 0; // 초기값으로 리셋
       updateTimerDisplay();
     }
 
-    updateTimerDisplay(); // 초기화
-  </script>
+    updateTimerDisplay(); // 처음에 표시
+      </script>
 
 </body>
 </html>

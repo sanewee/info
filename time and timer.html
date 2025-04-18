@@ -2,18 +2,32 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>현재 시간 & 타이머</title>
+  <title>Sanewee's Timer</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      background-color: #ffffff; 
+      font-family: '여기어때 잘난체', '함초롬돋움', sans-serif;
       text-align: center;
       margin-top: 50px;
     }
-    .time, .timer {
+    .time{
       font-size: 2em;
       margin: 20px 0;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 3.5em;
+    }
+    .timer {
+      font-size: 2em;
+      margin: 20px 0;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 4.0em;
+      color: #368AFF;
     }
     button {
+      font-family: inherit;
+      font-weight: bold;
       font-size: 1em;
       margin: 5px;
       padding: 10px 20px;
@@ -22,14 +36,14 @@
 </head>
 <body>
 
-  <h1>🕒 현재 시간과 ⏱️ 타이머</h1>
+  <!--<h1>Sanewee's Timer</h1>-->
 
   <div class="time" id="current-time">--:--:--</div>
 
-  <hr style="width: 50%; margin: 30px auto;">
+  <!--r가로줄-->
+  <hr style="width: 30%; margin: 30px auto;">
 
   <div class="timer" id="timer">00:00:00</div>
-
   <div>
     <button onclick="startTimer()">시작</button>
     <button onclick="stopTimer()">정지</button>

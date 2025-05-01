@@ -25,20 +25,34 @@
 
     .calendar-header {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: 0.2fr auto 0.2fr;
       align-items: center;
-      font-size: 10vmin;
+      font-size: 9vmin;
       color: #4b4b4b;
       padding: 2vmin 1vmin;
     }
 
     .calendar-header .nav {
-      font-size: 10vmin;
-      color: #9b9b9b;
-      cursor: pointer;
-      user-select: none;
-      justify-self: center;
-    }
+        font-size: 4vmin;
+        color: #ffffff;
+        background-color: #787774;
+        width: 6vmin;
+        height: 6vmin;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        justify-self: center;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.2s;
+        margin-top: 3vmin;
+        padding-bottom: 0.5vmin;
+      }
+      
+      .calendar-header .nav:hover {
+        background-color: #32302C;
+      }
 
     .calendar-header #monthYear {
       justify-self: center;

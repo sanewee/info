@@ -77,7 +77,7 @@
     const fromYMD = formatDate(dates[0]);
     const toYMD = formatDate(dates[4]);
 
-    const apiUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&MLSV_FROM_YMD=${fromYMD}&MLSV_TO_YMD=${toYMD}`;
+    const apiUrl = `https://meal-api.mikhaila1477.workers.dev/?from=${fromYMD}&to=${toYMD}`;
 
     fetch(apiUrl)
       .then(res => res.json())

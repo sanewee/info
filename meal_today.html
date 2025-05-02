@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Meal</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #ffffff00;
+      padding: 20px;
+      font-size: clamp(12px, 1.2vw, 18px); /* 반응형 글꼴 크기 */
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #ffffff;
+      margin-top: 0px;
+      table-layout: fixed; /* 칼럼 균등 분배 */
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+      text-align: center;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+    th:first-child,
+    td:first-child {
+      width: 2em; /* '구분' 열 고정 */
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+  
+</head>
+<body>
+    <table id="mealTable"></table>
+  
+    <script>
+      // 오늘 날짜 또는 다음주 월요일 구하기
+      function getTargetDate() {
+        const today = new Date();
+        const day = today.getDay(); // 0: 일 ~ 6: 토
+        const target = new Date(today);
+  
+        if (day === 6) {
+          target.setDate(today.getDate() + 2); // 토요일 → 월요일
+        } else if (day === 0) {
+          target.setDate(today.getDate() + 1); // 일요일 → 월요일
+        }
+  
+        return target;
+      }
+  
+      function formatDate(d) {
+        return d.toISOString().slice(0, 10).replace(/-/g, '');
+      }
+  
+      (async function () {
+        const date = getTargetDate();
+        const ymd = formatDate(date);
+  
+        const apiUrl = `https://meal-api.mikhaila1477.workers.dev/?from=${ymd}&to=${ymd}`;
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+  
+        const rows = data?.mealServiceDietInfo?.[1]?.row || [];
+  
+        const lunch = rows.find(r => r.MLSV_YMD === ymd && r.MMEAL_SC_NM === '중식');
+        const dinner = rows.find(r => r.MLSV_YMD === ymd && r.MMEAL_SC_NM === '석식');
+  
+        const table = document.getElementById('mealTable');
+  
+        table.innerHTML = `
+          <thead>
+            <tr><th>구분</th><th>메뉴</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>중식</th><td>${lunch ? lunch.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-'}</td></tr>
+            <tr><th>석식</th><td>${dinner ? dinner.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-'}</td></tr>
+          </tbody>
+        `;
+      })();
+    </script>
+  </body>
+  
+</html>

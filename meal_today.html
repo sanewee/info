@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Meal</title>
   <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+      }
     body {
       font-family: sans-serif;
       background-color: #ffffff00;
@@ -11,12 +15,15 @@
       font-size: clamp(12px, 1.2vw, 18px); /* 반응형 글꼴 크기 */
     }
     table {
-      border-collapse: collapse;
-      width: 100%;
-      background: #ffffff;
-      margin-top: 0px;
-      table-layout: fixed; /* 칼럼 균등 분배 */
-    }
+        border-collapse: collapse;         /* 유지! */
+        width: 100%;
+        background: #fff;
+        border: 1px solid #ccc;            /* 테두리 직접 줌 */
+        border-radius: 8px;                /* 둥근 모서리 */
+        overflow: hidden;                  /* 둥근 모서리 밖 자르기 */
+      }
+      
+      
     th, td {
       border: 1px solid #ccc;
       padding: 5px;

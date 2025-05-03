@@ -4,35 +4,58 @@
   <meta charset="UTF-8">
   <title>Meal</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
       font-family: sans-serif;
+      font-size: clamp(12px, 1.2vw, 18px);
       background-color: transparent;
-      padding: 0px;
-      font-size: clamp(12px, 1.2vw, 18px); /* 반응형 글꼴 크기 */
+      color: inherit;
     }
+
     table {
       border-collapse: collapse;
       width: 100%;
       background-color: transparent;
-      margin-top: 0px;
-      table-layout: fixed; /* 칼럼 균등 분배 */
+      table-layout: fixed;
     }
+
     th, td {
-      border: 1px solid #ccc;
-      padding: 5px;
+      border: 1px solid var(--border-color, #ccc);
+      padding: 6px 8px;
       text-align: center;
       vertical-align: top;
-      word-wrap: break-word;
+      word-break: break-word;
+      background-color: var(--cell-bg, white);
+      color: var(--text-color, black);
     }
+
+    th {
+      font-weight: 600;
+      background-color: var(--header-bg, #f3f4f5);
+    }
+
     th:first-child,
     td:first-child {
-      width: 2em; /* '구분' 열 고정 */
+      width: 3em;
     }
-    th {
-      background-color: #eee;
+
+    @media (prefers-color-scheme: dark) {
+      html, body{
+        background-color: #1e1e1e;
+      }
+      th, td {
+        border-color: #444;
+        background-color: #1e1e1e;
+        color: #ddd;
+      }
+
+      th {
+        background-color: #2a2a2a;
+        color: #fff;
+      }
     }
   </style>
-  
 </head>
 <body>
   <table id="mealTable">
@@ -46,7 +69,6 @@
   </table>
 
   <script>
-    const key = '';
     const eduOfficeCode = 'I10';
     const schoolCode = '9300117';
 
@@ -55,14 +77,11 @@
     const monday = new Date(today);
 
     if (day === 0) {
-      // 일요일이면 다음 주 월요일
-      monday.setDate(today.getDate() + 1);
+      monday.setDate(today.getDate() + 1); // 일요일 → 다음 주 월요일
     } else if (day === 6) {
-      // 토요일이면 다음 주 월요일
-      monday.setDate(today.getDate() + 2);
+      monday.setDate(today.getDate() + 2); // 토요일 → 다음 주 월요일
     } else {
-      // 평일이면 이번 주 월요일
-      monday.setDate(today.getDate() - (day - 1));
+      monday.setDate(today.getDate() - (day - 1)); // 이번 주 월요일
     }
 
     const dates = [];
@@ -73,7 +92,6 @@
     }
 
     const formatDate = d => d.toISOString().slice(0, 10).replace(/-/g, '');
-
     const fromYMD = formatDate(dates[0]);
     const toYMD = formatDate(dates[4]);
 
@@ -83,23 +101,19 @@
       .then(res => res.json())
       .then(data => {
         const entries = data?.mealServiceDietInfo?.[1]?.row || [];
-
-        // 날짜 헤더 구성
         const dateRow = document.getElementById('dateRow');
         const lunchRow = document.getElementById('lunchRow');
         const dinnerRow = document.getElementById('dinnerRow');
 
         dates.forEach(date => {
           const ymd = formatDate(date);
-          const label = `${date.getDate()}`;
+          const label = `${date.getMonth() + 1}/${date.getDate()}`; // 월/일 형식
           dateRow.innerHTML += `<th>${label}</th>`;
 
-          // 중식 찾기
           const lunch = entries.find(e => e.MLSV_YMD === ymd && e.MMEAL_SC_NM === '중식');
           const lunchText = lunch ? lunch.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-';
           lunchRow.innerHTML += `<td>${lunchText}</td>`;
 
-          // 석식 찾기
           const dinner = entries.find(e => e.MLSV_YMD === ymd && e.MMEAL_SC_NM === '석식');
           const dinnerText = dinner ? dinner.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-';
           dinnerRow.innerHTML += `<td>${dinnerText}</td>`;

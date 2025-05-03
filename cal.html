@@ -130,9 +130,6 @@
 
       html, body{
         background-color: #191919;
-      }
-      
-      html, body {
         color: #f0f0f0;
       }
   
@@ -167,10 +164,18 @@
   
       .today {
         color: #ffffff;
+        font-weight: bold;
+        position: relative;
+        z-index: 1;
       }
   
       .today::before {
-        background-color: #444034;
+        content: "";
+        position: absolute;
+        width: 12vmin;
+        height: 12vmin;
+        background-color: #313618;
+        z-index: -1;
       }
     }
   </style>

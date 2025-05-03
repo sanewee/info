@@ -19,19 +19,13 @@
       table-layout: fixed;
     }
 
-    th, td {
+    td {
       border: 1px solid #ccc;
       padding: 6px 8px;
       text-align: center;
       vertical-align: top;
       word-break: break-word;
       background-color: #fff;
-      color: #000;
-    }
-
-    th {
-      font-weight: 600;
-      background-color: #f3f4f5;
       color: #000;
     }
 
@@ -42,15 +36,10 @@
         color: #eee;
       }
 
-      th, td {
+      td {
         background-color: #1e1e1e !important;
         color: #eee !important;
         border-color: #444 !important;
-      }
-
-      th {
-        background-color: #2a2a2a !important;
-        color: #fff !important;
       }
     }
   </style>
@@ -85,12 +74,9 @@
 
       const table = document.getElementById('mealTable');
       table.innerHTML = `
-        <thead>
-          <tr><th>구분</th><th>메뉴</th></tr>
-        </thead>
         <tbody>
-          <tr><th>중식</th><td>${lunch ? lunch.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-'}</td></tr>
-          <tr><th>석식</th><td>${dinner ? dinner.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-'}</td></tr>
+          <tr><td>${lunch ? lunch.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-'}</td></tr>
+          <tr><td>${dinner ? dinner.DDISH_NM.replace(/\([^\)]*\)/g, '').replace(/<br\/?>/g, '<br>') : '-'}</td></tr>
         </tbody>
       `;
     })();

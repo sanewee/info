@@ -20,7 +20,7 @@
     }
 
     th, td {
-      border: 1px solid #EBEBE9;
+      border: 5px solid transparent;
       padding: 6px 8px;
       text-align: center;
       vertical-align: top;
@@ -41,14 +41,9 @@
       }
 
       th, td {
-        background-color: #191919 !important;
-        color: #eee !important;
-        border-color: #e9e9e7 !important;
-      }
-
-      th {
         background-color: #2f2f2f !important;
-        color: #fff !important;
+        color: #D4D3D4 !important;
+        border-color: #191919 !important;
       }
     }
   </style>
@@ -61,7 +56,7 @@
       const today = new Date();
       const day = today.getDay();
       const target = new Date(today);
-      if (day === 6) target.setDate(today.getDate() + 2);
+      if (day === 6) target.setDate(today.getDate() + 5); //2
       else if (day === 0) target.setDate(today.getDate() + 1);
       return target;
     }

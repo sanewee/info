@@ -56,10 +56,10 @@
 
     .back-button {
       position: absolute;
-      top: 50%;
-      right: 20%;
-      transform: translateY(-50%);
-      background-color: rgb(255, 255, 255, 0.2);
+      top: calc(20% + 30px); /* Playlist 아래로 일정 거리 */
+      left: 20%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.2);
       color: white;
       font-size: 15px;
       border: none;
@@ -69,15 +69,14 @@
       z-index: 2;
       display: none;
     }
-    
   </style>
 </head>
 <body>
   <div class="video-wrapper" id="player">
-    <!-- Playlist 텍스트 (항상 보임) -->
+    <!-- Playlist 텍스트 -->
     <div class="overlay-text">Playlist</div>
 
-    <!-- Back 버튼 (영상 모드에서만 보임) -->
+    <!-- Back 버튼 -->
     <button class="back-button" id="backBtn">Back</button>
 
     <!-- 이미지 화면 -->
@@ -107,7 +106,7 @@
       youtubeFrame.src = `https://www.youtube.com/embed/${videoID}?autoplay=1`;
       coverView.style.display = "none";
       videoView.style.display = "block";
-      backBtn.style.display = "block";
+      backBtn.style.display = "inline-block";
     });
 
     // Back 버튼 → 이미지로 복귀

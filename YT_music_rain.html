@@ -23,8 +23,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      cursor: pointer;
-      border-radius:3px; /* ✔ 화면은 그대로, 모서리만 둥글게 */
+      border-radius: 3px;
     }
 
     .video-wrapper img {
@@ -33,6 +32,7 @@
       object-fit: cover;
       object-position: center center;
       display: block;
+      cursor: pointer;
     }
 
     .video-wrapper::after {
@@ -52,22 +52,56 @@
       width: 100vw;
       height: 100vh;
       border: none;
-      border-radius: 3px; /* ✔ iframe도 동일한 곡률 */
+      border-radius: 3px;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 50%;
+      right: 20%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.2); /* ✅ 20% 투명 흰 배경 */
+      color: white;
+      font-size: 15px;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 3px;
+      cursor: pointer;
+      z-index: 2;
+      display: none; /* 기본은 안 보이게 */
     }
   </style>
 </head>
 <body>
   <div class="video-wrapper" id="player">
-    <img src="the9.jpg" alt="cover">
+    <!-- Back 버튼 (영상일 때만 나타남) -->
+    <button class="back-button" id="backBtn">Back</button>
+
+    <!-- 이미지 -->
+    <img src="the9.jpg" alt="cover" id="coverImg">
   </div>
 
   <script>
     const wrapper = document.getElementById("player");
+    const coverImg = document.getElementById("coverImg");
+    const backBtn = document.getElementById("backBtn");
     const playlistID = "PLzPZOc6m6ZNrgq9f37i9AYvsTEiz6grm-";
-    wrapper.addEventListener("click", () => {
-      wrapper.outerHTML = `
+
+    coverImg.addEventListener("click", () => {
+      wrapper.innerHTML = `
+        <button class="back-button" id="backBtn">Back</button>
         <iframe src="https://www.youtube.com/embed/videoseries?list=${playlistID}&autoplay=1"
                 allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+
+      document.getElementById("backBtn").addEventListener("click", () => {
+        wrapper.innerHTML = `
+          <button class="back-button" id="backBtn" style="display: none;">Back</button>
+          <img src="the9.jpg" alt="cover" id="coverImg">`;
+
+        document.getElementById("coverImg").addEventListener("click", () => {
+          location.reload(); // 다시 영상 보여주도록 새로고침
+        });
+      });
     });
   </script>
 </body>

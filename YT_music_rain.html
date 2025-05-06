@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>YT_music_rain</title>
+  <meta charset="UTF-8">
+  <title>산이의 풀스크린 플레이리스트</title>
   <style>
-    body {
-      text-align: center;
-      font-family: sans-serif;
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
     }
 
-    @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #191919;
-          color: #eee;
-        }
+    .video-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .video-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .video-wrapper::after {
+      content: '▶';
+      font-size: 3rem;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 90%;
+      transform: translate(-50%, -50%);
+      text-shadow: 0 0 20px black;
+      pointer-events: none;
+    }
+
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
     }
   </style>
 </head>
 <body>
-    <iframe width="100%" height="400"
-    src="https://www.youtube.com/embed?listType=playlist&list=PLzPZOc6m6ZNrgq9f37i9AYvsTEiz6grm-"
-    frameborder="0" allowfullscreen>
-  </iframe>
-  </body>
+  <div class="video-wrapper" id="player">
+    <img src="the9.jpg" alt="cover">
+  </div>
+
+  <script>
+    const wrapper = document.getElementById("player");
+    const playlistID = "PLzPZOc6m6ZNrgq9f37i9AYvsTEiz6grm-";
+    wrapper.addEventListener("click", () => {
+      wrapper.outerHTML = `
+        <iframe src="https://www.youtube.com/embed/videoseries?list=${playlistID}&autoplay=1"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    });
+  </script>
+</body>
 </html>

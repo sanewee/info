@@ -60,7 +60,7 @@
       top: 50%;
       right: 20%;
       transform: translateY(-50%);
-      background-color: rgba(255, 255, 255, 0.2); /* ✅ 20% 투명 흰 배경 */
+      background-color: rgba(255, 255, 255, 0.2);
       color: white;
       font-size: 15px;
       border: none;
@@ -68,17 +68,14 @@
       border-radius: 3px;
       cursor: pointer;
       z-index: 2;
-      display: none; /* 기본은 안 보이게 */
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="video-wrapper" id="player">
-    <!-- Back 버튼 (영상일 때만 나타남) -->
-    <button class="back-button" id="backBtn">Back</button>
-
-    <!-- 이미지 -->
     <img src="the9.jpg" alt="cover" id="coverImg">
+    <button class="back-button" id="backBtn">Back</button>
   </div>
 
   <script>
@@ -88,20 +85,23 @@
     const playlistID = "PLzPZOc6m6ZNrgq9f37i9AYvsTEiz6grm-";
 
     coverImg.addEventListener("click", () => {
-      wrapper.innerHTML = `
-        <button class="back-button" id="backBtn">Back</button>
-        <iframe src="https://www.youtube.com/embed/videoseries?list=${playlistID}&autoplay=1"
-                allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+      // 영상 iframe 삽입
+      coverImg.style.display = "none";
+      backBtn.style.display = "block";
 
-      document.getElementById("backBtn").addEventListener("click", () => {
-        wrapper.innerHTML = `
-          <button class="back-button" id="backBtn" style="display: none;">Back</button>
-          <img src="the9.jpg" alt="cover" id="coverImg">`;
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlistID}&autoplay=1`;
+      iframe.allow = "autoplay; encrypted-media";
+      iframe.allowFullscreen = true;
+      wrapper.appendChild(iframe);
+    });
 
-        document.getElementById("coverImg").addEventListener("click", () => {
-          location.reload(); // 다시 영상 보여주도록 새로고침
-        });
-      });
+    backBtn.addEventListener("click", () => {
+      // 영상 제거, 이미지 복귀
+      const iframe = wrapper.querySelector("iframe");
+      if (iframe) wrapper.removeChild(iframe);
+      coverImg.style.display = "block";
+      backBtn.style.display = "none";
     });
   </script>
 </body>

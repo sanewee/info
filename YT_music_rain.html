@@ -5,6 +5,7 @@
   <title>sanepick</title>
   <style>
     html, body {
+      font-family: 'Noto Sans', sans-serif;
       margin: 0;
       padding: 0;
       height: 100%;
@@ -23,7 +24,7 @@
       height: 100vh;
       overflow: hidden;
       cursor: pointer;
-      border-radius: 24px; /* ✔ 화면은 그대로, 모서리만 둥글게 */
+      border-radius:6px; /* ✔ 화면은 그대로, 모서리만 둥글게 */
     }
 
     .video-wrapper img {
@@ -35,14 +36,14 @@
     }
 
     .video-wrapper::after {
-      content: '▶';
-      font-size: 3rem;
+      content: '🤍Playlist';
+      font-size: 20vh;
       color: white;
       position: absolute;
-      top: 50%;
-      left: 90%;
+      top: 20%;
+      left: 20%;
       transform: translate(-50%, -50%);
-      text-shadow: 0 0 20px black;
+      text-shadow: 0 0 5px rgb(255, 255, 255);
       pointer-events: none;
       z-index: 2;
     }
@@ -51,7 +52,7 @@
       width: 100vw;
       height: 100vh;
       border: none;
-      border-radius: 24px; /* ✔ iframe도 동일한 곡률 */
+      border-radius: 6px; /* ✔ iframe도 동일한 곡률 */
     }
   </style>
 </head>

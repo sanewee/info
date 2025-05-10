@@ -89,7 +89,7 @@
       backBtn.style.display = "block";
 
       const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlistID}&autoplay=1`;
+      iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlistID}&autoplay=1&loop=1&playlist=${videoID}`;
       iframe.allow = "autoplay; encrypted-media";
       iframe.allowFullscreen = true;
       wrapper.appendChild(iframe);

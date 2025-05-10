@@ -104,7 +104,7 @@
 
     // 이미지 → 영상으로 전환
     coverImg.addEventListener("click", () => {
-      youtubeFrame.src = `https://www.youtube.com/embed/${videoID}?autoplay=1`;
+      youtubeFrame.src = `https://www.youtube.com/embed/${videoID}?autoplay=1&loop=1&playlist=${videoID}`;
       coverView.style.display = "none";
       videoView.style.display = "block";
       backBtn.style.display = "inline-block";
